@@ -40,7 +40,9 @@ done
     elif [ "$CONFVAL" = "even" ]; then
         CONFIGS=( '2' '4' '6' )
     elif [ "$CONFVAL" = "test" ]; then
-        CONFIGS=( 'test' 'test2' )
+        CONFIGS=( '7' '8' '9' )
+    elif [ "$CONFVAL" = "test2" ]; then
+        CONFIGS=( '10' '11' '12' )
     else
         "Invalid configuration value. Exiting script"
         exit 
@@ -51,16 +53,18 @@ done
 SERVERNAME=$( hostname )
 
 
+echo -e "Updating repositories directory"
 for CONFIG in "${CONFIGS[@]}"; do
     echo -e "sh $0 --config_name=$CONFIGNAME$CONFIG --action=chmod --permission=700"
     sh /app/atlassian/alt_cleanup/mass-permission-update/update-filesystem-property.sh --config_name=${CONFIGNAME}${CONFIG} --action=chmod --permission=700
     echo -e "\n\n"
     curl -X POST -H 'Content-type: application/json' --data '{"text": "'"${CONFIGNAME}${CONFIG} Update Permission Mode for ${SERVERNAME} Complete."'"}' ${WEBHOOK_URL}
     curl -X POST -H 'Content-type: application/json' --data '{"text": "'"${CONFIGNAME}${CONFIG} Update Permission Mode for ${SERVERNAME} Complete."'"}' ${WEBHOOK_URL_TEAMS}
-    
-    done
+ 
+done
 
 if [[ "${SERVERNAME,,}" == *001v ]]; then
+    echo -e "Updating permission mode on shared directories excluding repositories"
     CONFIGNAME="shareddata"
     sh /app/atlassian/alt_cleanup/mass-permission-update/update-filesystem-property.sh --config_name=${CONFIGNAME} --action=chmod --permission=700
     echo -e "\n\n"

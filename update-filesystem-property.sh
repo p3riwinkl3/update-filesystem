@@ -95,7 +95,7 @@ for SUBDIR in "${DIR_LIST[@]}"; do
         # chown -R "${USERNAME}":"${GROUPNAME}" "${SUBDIR}"    
     elif [ "$ACTION" = 'chmod' ]; then
         echo "Setting file permission on ${SUBDIR} to ${PERM_MODE}"
-        # chmod -R "${PERM_MODE}" "${SUBDIR}"
+        chmod -R "${PERM_MODE}" "${SUBDIR}"
     fi  
 
     let "COUNTER+=1"

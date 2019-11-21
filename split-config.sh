@@ -1,18 +1,5 @@
 #!/usr/bin/bash
 
-# One configuration
-
-# echo "Which config to split? Type 'dir' or 'alt'"
-# read CONFIG_SPLIT
-# echo "Enter configuration name to split: (repositories, repositories1,.. test) "
-# read ENVIRONMENT
-
-# echo "Do you want to create subdirectory for the config? Type 'yes' or 'no'..."
-# read TYPE
-
-# echo "Number of configuration files to be generated? "
-# read DIV_BY
-
 function usage(){
     echo -e "Usage: $0 --configuration=<config file name> --config_name=<name of config file> --create_subdir=yes|no --config_num=" 
     echo -e "\t-h --help\n"

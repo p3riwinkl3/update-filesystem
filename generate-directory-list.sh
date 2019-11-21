@@ -50,4 +50,4 @@ if [ -f "$CONFIG_FILE" ]; then
     mv ${CONFIG_FILE} ${CONFIG_FILE}.old
 fi
 
-find "${DIR_HOME}" -maxdepth 1 -type d >> $CONFIG_FILE
+find "${DIR_HOME}" -maxdepth 1 -mindepth 1 -type d >> $CONFIG_FILE
