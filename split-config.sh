@@ -2,16 +2,60 @@
 
 # One configuration
 
-echo "Which config to split? Type 'dir' or 'alt'"
-read CONFIG_SPLIT
-echo "Which environment are you working on? Type 'prod' or 'test'"
-read ENVIRONMENT
+# echo "Which config to split? Type 'dir' or 'alt'"
+# read CONFIG_SPLIT
+# echo "Enter configuration name to split: (repositories, repositories1,.. test) "
+# read ENVIRONMENT
 
-echo "Which configuration will you split. Type 'shared' or 'node'"
-read TYPE
+# echo "Do you want to create subdirectory for the config? Type 'yes' or 'no'..."
+# read TYPE
 
-echo "Number of configuration files to be generated? "
-read DIV_BY
+# echo "Number of configuration files to be generated? "
+# read DIV_BY
+
+function usage(){
+    echo -e "Usage: $0 --configuration=<config file name> --config_name=<name of config file> --create_subdir=yes|no --config_num=" 
+    echo -e "\t-h --help\n"
+    echo -e "\t--configuration=config to split. Options are 'dir' or 'alt'"
+    echo -e "\t--config_name=repositories|respositories2|repositories3"
+    echo -e "\t\t Name of the configuration file which contains the list of dir that will be updated; "
+    echo -e "\t\t\t configuration file must exist in dir_config director\n"
+    echo -e "\t--create_subdir=yes|no"
+    echo -e "\t\t If subdir is needed to be created where the config files will be generated"
+    echo -e "\t--config_num=number of configuration files that will be generated"
+}
+
+
+while [ "$1" != "" ]; do
+    PARAM=`echo $1 | awk -F= '{print $1}'`
+    VALUE=`echo $1 | awk -F= '{print $2}'`
+    case $PARAM in
+        --configuration)
+            CONFIG_SPLIT=$VALUE
+            ;;
+        --config_name)
+            ENVIRONMENT=$VALUE
+            ;;
+        --create_subdir)
+            TYPE=$VALUE
+            ;;
+        --config_num)
+            DIV_BY=$VALUE
+            ;;
+
+        -h | --help)
+            usage
+            exit
+            ;;
+        *)
+            echo "ERROR: unknown parameter \"$PARAM\""
+            usage
+            exit 1
+            ;;
+    esac
+    shift
+done
+
 
 if [ "$CONFIG_SPLIT" = "dir" ]; then
     CONFIG_PATH="$( pwd )/dir_config"
@@ -49,9 +93,9 @@ while [ "$IND" -lt $DIV_BY ]; do
     TEMP_ALTERNATES=( "${ALTERNATES[@]:LOW_IND:INTERVAL}" )
 
     for ALTERNATE in "${TEMP_ALTERNATES[@]}"; do
-        if [ "$TYPE" = "shared" ]; then
+        if [ "$TYPE" = "no" ]; then
             echo -n "${ALTERNATE}" >> "$CONFIG_PATH/$CONFIGNAME-$ENVIRONMENT$COUNT"
-        elif [ "$TYPE" = "node" ]; then
+        elif [ "$TYPE" = "yes" ]; then
             if [ ! -d "$NODE_PATH" ]; then
                 mkdir "${NODE_PATH}"
             fi
