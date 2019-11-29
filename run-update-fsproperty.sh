@@ -48,8 +48,6 @@ done
         exit 
     fi 
 
-
-
 SERVERNAME=$( hostname )
 
 

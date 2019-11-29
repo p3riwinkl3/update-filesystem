@@ -2,8 +2,8 @@
 
 #Accept parameter for parallel execution
 readonly SCRIPTDIR=/app/atlassian/alt_cleanup/mass-permission-update
-readonly WEBHOOK_URL='https://hooks.slack.com/services/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'
-readonly WEBHOOK_URL_TEAMS='https://outlook.office.com/webhook/1eb8b78e-dcd4-478a-ac0d-33124d089615@64e5ad32-cb04-44df-8896-bed5d7792429/IncomingWebhook/14d265e36351405ca811c011d02d3a3f/805027c5-deca-4159-8b80-2ee44c6e4af3'
+readonly WEBHOOK_URL='<slack webhook URL>'
+readonly WEBHOOK_URL_TEAMS='<teams webhook URL>'
 
 
 function usage(){
